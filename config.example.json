@@ -1,0 +1,16 @@
+# Конфигурационный файл для Log Viewer 2025
+# Скопируйте этот файл в config.json и заполните своими данными
+
+# Telegram Bot настройки
+telegram_bot_token=YOUR_BOT_TOKEN
+telegram_chat_id=YOUR_CHAT_ID
+telegram_enabled=false
+
+# VDS настройки
+vds_api_url=https://your-vds-server.com
+vds_api_key=YOUR_API_KEY
+vds_enabled=false
+
+# Автоматические обновления
+auto_update=true
+
