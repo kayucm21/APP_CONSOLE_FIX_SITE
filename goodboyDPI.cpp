@@ -344,8 +344,8 @@ std::string GetPCID() {
 // ==================== СИСТЕМА ОБНОВЛЕНИЙ 2025 ====================
 
 // Forward declarations
-bool SendTelegramMessage(const std::string& message, const std::string& botToken, const std::string& chatId);
 void LogSystem(const std::wstring& exeDir, const std::string& systemMessage);
+bool SendTelegramMessage(const std::string& message, const std::string& botToken, const std::string& chatId);
 
 // Функция проверки обновлений от GitHub (БЕЗ установки Git)
 // Проверяет наличие новых релизов через GitHub API
@@ -484,6 +484,14 @@ void SaveConfig(const std::wstring& exeDir) {
 }
 
 // ==================== РАСШИРЕННАЯ СИСТЕМА ЛОГИРОВАНИЯ 2025 ====================
+
+// Forward declarations для Telegram и VDS функций (должны быть перед всеми функциями, которые их используют)
+bool SendTelegramMessage(const std::string& message, const std::string& botToken, const std::string& chatId);
+std::string FormatLogForTelegram(const std::string& logType, const std::string& message, 
+                                  const std::string& errorCode = "", const std::string& ip = "");
+void SendLogToTelegram(const std::wstring& exeDir, const std::string& logType, const std::string& message,
+                       const std::string& errorCode = "", const std::string& blockingInfo = "");
+bool SendLogToVDS(const std::string& logData, const std::string& logType);
 
 // Генератор уникальных ID для логов
 std::string GenerateLogID() {
@@ -895,7 +903,7 @@ bool SendTelegramMessage(const std::string& message, const std::string& botToken
 
 // Форматирование лога для Telegram
 std::string FormatLogForTelegram(const std::string& logType, const std::string& message, 
-                                  const std::string& errorCode = "", const std::string& ip = "") {
+                                  const std::string& errorCode, const std::string& ip) {
     std::string emoji = "📋";
     if (logType == "ERROR") emoji = "❌";
     else if (logType == "BLOCK") emoji = "🔒";
@@ -920,7 +928,7 @@ std::string FormatLogForTelegram(const std::string& logType, const std::string& 
 
 // Отправка лога в Telegram
 void SendLogToTelegram(const std::wstring& exeDir, const std::string& logType, const std::string& message,
-                       const std::string& errorCode = "", const std::string& blockingInfo = "") {
+                       const std::string& errorCode, const std::string& blockingInfo) {
     if (!currentSettings.telegram_enabled || currentSettings.telegram_bot_token.empty()) {
         return;
     }
@@ -2964,8 +2972,8 @@ int main() {
         
         // ==================== ПРОВЕРКА ОБНОВЛЕНИЙ ОТ GITHUB ====================
         // Проверяем наличие новых релизов на GitHub (БЕЗ установки Git)
-        // Замените YOUR_USERNAME и REPO_NAME на ваши данные
-        CheckGitHubUpdate("YOUR_USERNAME", "REPO_NAME", true); // true = отправлять уведомления в Telegram
+        // Репозиторий: https://github.com/kayucm21/APP_CONSOLE_FIX_SITE
+        CheckGitHubUpdate("kayucm21", "APP_CONSOLE_FIX_SITE", true); // true = отправлять уведомления в Telegram
     }
     
     // ==================== ОБНОВЛЕНИЕ СПИСКОВ IPSET ====================

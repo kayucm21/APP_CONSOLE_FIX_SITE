@@ -77,12 +77,16 @@ vds_enabled=true
 ### 3. Настройка обновлений
 
 #### GitHub репозиторий
-1. Создайте репозиторий на GitHub
-2. Создайте релизы (releases) для версий
-3. Обновите код в `goodboyDPI.cpp`:
+✅ **УЖЕ НАСТРОЕНО!** Репозиторий: https://github.com/kayucm21/APP_CONSOLE_FIX_SITE
+
+1. Репозиторий уже настроен в коде
+2. Создайте релизы (releases) для версий на GitHub
+3. Текущая настройка в `goodboyDPI.cpp`:
 ```cpp
-CheckGitHubUpdate("YOUR_USERNAME", "REPO_NAME", true);
+CheckGitHubUpdate("kayucm21", "APP_CONSOLE_FIX_SITE", true);
 ```
+
+Если нужно изменить репозиторий, обновите код в `goodboyDPI.cpp`
 
 #### Настройка конфигурации
 ```
